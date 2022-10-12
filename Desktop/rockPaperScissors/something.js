@@ -13,36 +13,56 @@ function getComputerChoice () {
     };
 };
 
-/*returns players input without capitalization*/
-function getPlayerChoice () {
-    UserInput = "Rock";
-    return UserInput.toLowerCase();
-};
+rockButton = document.getElementById("rock");
+paperButton = document.getElementById("paper");
+scissorsButton = document.getElementById("scissors");
+ShowResults = document.getElementById("showResults")
+playerChoice = ""
+
+rockButton.addEventListener("click", function () {
+    playerChoice = "rock"
+    Game()
+})
+
+paperButton.addEventListener("click", function () {
+    playerChoice = "paper"
+    Game()
+})
+
+scissorsButton.addEventListener("click", function () {
+    playerChoice = "scissors"
+    Game()
+})
+
+ComputerPoints = 0;
+PlayerPoints = 0;
 
 function Game () {
 
     /*keeps track of the score*/
 
-    ComputerPoints = 0;
-    PlayerPoints = 0;
+
 
     /*repeats until number of rounds are completed.*/
-    for (rounds = 0;rounds <= 5; rounds++) {
-        PlayerChoice = getPlayerChoice();
+
         ComputerChoice = getComputerChoice();
 
+
+
         /*checks if its a tie*/
-        if (PlayerChoice === ComputerChoice) {
-            return "Tie! no points have been added!";
+        if (playerChoice === ComputerChoice) {
+            showResults.textContent = "Tie! no points have been added!"
         };
 
         /*checks if computer won*/
-        if (PlayerChoice === "rock" && ComputerChoice === "paper" || PlayerChoice === "scissors" && ComputerChoice === "rock" || PlayerChoice === "paper" && ComputerChoice === "scisscors") {
-            return "RIP! better luck next time!";
+        if (playerChoice === "rock" && ComputerChoice === "paper" || playerChoice === "scissors" && ComputerChoice === "rock" || playerChoice === "paper" && ComputerChoice === "scisscors") {
+            showResults.textContent =  "RIP! better luck next time!"
             /*if it isn't a loss, it will otherwise be true regardless, thus in the event of a win, we do not need to recheck, just use a "else" statement*/
+            ComputerPoints++
         }else {
-            return "GGS! you have won!";
+            showResults.textContent =  "GGS! you have won!"
+            PlayerPoints++
         };
+        document.getElementById("score").textContent = `${ComputerPoints} - ${PlayerPoints}`
     }
-};
-console.log(Game());
+    
